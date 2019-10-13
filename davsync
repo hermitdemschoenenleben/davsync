@@ -225,7 +225,7 @@ class WebDAVFileSystem (FileSystem) :
             fullPath = os.path.normpath('./' + os.path.join(path, name))
             last_modified = child.find('.//D:getlastmodified', self.xmlns)
             if last_modified is not None:
-                mtime = mtime = datetime.strptime(last_modified.text, RFC_1123_FORMAT)
+                mtime = datetime.strptime(last_modified.text, RFC_1123_FORMAT)
             else:
                 mtime = None
 
