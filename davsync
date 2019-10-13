@@ -223,7 +223,11 @@ class WebDAVFileSystem (FileSystem) :
             name = urllib2.unquote(child.find('D:href', self.xmlns).text)
 
             fullPath = os.path.normpath('./' + os.path.join(path, name))
-            mtime = datetime.strptime(child.find('.//D:getlastmodified', self.xmlns).text, RFC_1123_FORMAT)
+            last_modified = child.find('.//D:getlastmodified', self.xmlns)
+            if last_modified is not None:
+                mtime = mtime = datetime.strptime(last_modified.text, RFC_1123_FORMAT)
+            else:
+                mtime = None
 
             if self.isNodeCollection(child) :
                 d = Directory(fullPath, mtime)
